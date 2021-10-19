@@ -1,4 +1,5 @@
 from typing import List
+from math import sqrt
 
 
 def show_menu():
@@ -55,10 +56,66 @@ def get_biggest_number_div_by_k(lst: List, num: float) -> float:
 
 def test_get_biggest_number_div_by_k():
     assert get_biggest_number_div_by_k([], 2) == 0
-    assert get_biggest_number_div_by_k([1.3, 1.2, 3.2, 2.3,5,24, 23.2], 2) == 24
+    assert get_biggest_number_div_by_k([1.3, 1.2, 3.2, 2.3, 5, 24, 23.2], 2) == 24
     assert get_biggest_number_div_by_k([1, 2, 3, 4, 5, 6, 8, 7, 65, 45, 36, 24, 35, 34], 3) == 45
-    assert get_biggest_number_div_by_k([1.2, 9, 6, 3.4, 10, 23.43], 1) == 9
+    assert get_biggest_number_div_by_k([1.2, 9, 6, 3.4, 10, 23.43], 1) == 10
 
+
+def get_all_fractionary_palindrom(lista: List[float]):
+    '''
+    Determina toate float-urile ale caror parte fractionara este palindrom
+    :param lista: O lista data:
+    :return: O noua lista cu float-uri cu partea fractionara palindrom.
+    '''
+    result = []
+    for i in lista:
+        str_i = str(i)
+        if '.' in str_i:
+            numar = str_i.split('.')[1]
+            if numar == numar[::-1]:
+                result.append(i)
+    return result
+
+
+def test_get_all_fractionary_palindrom():
+    assert get_all_fractionary_palindrom([]) == []
+    assert get_all_fractionary_palindrom([5, 2.45, 5.44, 3.423, 6.2442]) == [5.44, 6.2442]
+    assert get_all_fractionary_palindrom([3.423, 3.2452]) == []
+
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, n - 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def test_is_prime():
+    assert is_prime(1) == False
+    assert is_prime(5) == True
+    assert is_prime(12) == False
+    assert is_prime(19) == True
+
+
+def get_reverse_string_on_prime(lst):
+    result = []
+    for elem in lst:
+        if elem >= 0:
+            str_elem = str(elem)
+            if is_prime(int(sqrt(elem))):
+                result.append(str_elem[::-1])
+            else:
+                result.append(elem)
+        else:
+            result.append(elem)
+    return result
+
+def test_get_reverse_string_on_prime():
+    assert get_reverse_string_on_prime([10.0, 100.0, 12.45, 50.0, 101.2]) == ['0.01', 100.0, '54.21', '0.05', 101.2]
+    assert get_reverse_string_on_prime([]) == []
+    assert get_reverse_string_on_prime([100.0]) == [100.0]
 
 def main():
     lista = []
@@ -70,11 +127,13 @@ def main():
         elif optiunea == '2':
             print(f'Numerele intregi din lista {lista} sunt: {get_full_number(lista)}. ')
         elif optiunea == '3':
-            pass
+            n = int(input('Alegeti numarul: '))
+            print(
+                f'Cel mai mare număr divizibil cu un număr citit de la tastatură este {get_biggest_number_div_by_k(lista, n)}')
         elif optiunea == '4':
-            pass
+            print(f'Numerele cu partea zecimala palindrom din {lista} sunt {get_all_fractionary_palindrom(lista)}')
         elif optiunea == '5':
-            pass
+            print(f'Lista prelucrata a listei {lista} este {get_reverse_string_on_prime(lista)}')
         elif optiunea == 'x':
             break
         else:
@@ -82,6 +141,9 @@ def main():
 
 
 if __name__ == '__main__':
+    test_get_all_fractionary_palindrom()
     test_get_biggest_number_div_by_k()
     test_get_full_number()
+    test_is_prime()
+    test_get_reverse_string_on_prime()
     main()
