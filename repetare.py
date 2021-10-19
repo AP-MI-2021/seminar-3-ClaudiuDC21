@@ -33,6 +33,27 @@ def test_get_str_in_list():
     assert get_str_in_list([], 'asd') == False
     assert get_str_in_list(['aaa', 'bbb', 'cmtc', 'drd', 'aaa'], 'abc') == False
 
+def get_list_with_multiple_str(lst: List[str]) -> List[str]:
+    '''
+    Determina sirurile dde caractere care se repeta.
+    :param lst: Lista data
+    :return: O lista cu sirurile de caractere ce se repeta.
+    '''
+    lungime = len(lst)
+    result = []
+    for st in range(lungime - 1):
+        for dr in range(st + 1,lungime):
+            if lst[st] == lst[dr]:
+                result.append(str(lst[st]))
+                dr = lungime
+    return result
+
+
+def test_get_list_with_multiple_str():
+    assert get_list_with_multiple_str([]) == []
+    assert get_list_with_multiple_str(['aaa', 'bbb', 'cmtc', 'drd', 'aaa']) == ['aaa']
+    assert get_list_with_multiple_str(['aaa', 'bbb', 'cmtc', 'drd', 'ads', 'sfd']) == []
+
 def main():
     lista = []
     while True:
@@ -47,7 +68,7 @@ def main():
             else:
                 print('NU')
         elif optiunea == '3':
-            pass
+            print(f'Sirurile de caractere din lista {lista} ce se repeta sunt: {get_list_with_multiple_str(lista)}')
         elif optiunea == '4':
             pass
         elif optiunea == '5':
@@ -60,4 +81,5 @@ def main():
 
 if __name__ == '__main__':
     test_get_str_in_list()
+    test_get_list_with_multiple_str()
     main()
