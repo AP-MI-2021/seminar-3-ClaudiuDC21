@@ -1,3 +1,4 @@
+import copy
 from typing import List
 
 def show_menu():
@@ -54,6 +55,46 @@ def test_get_list_with_multiple_str():
     assert get_list_with_multiple_str(['aaa', 'bbb', 'cmtc', 'drd', 'aaa']) == ['aaa']
     assert get_list_with_multiple_str(['aaa', 'bbb', 'cmtc', 'drd', 'ads', 'sfd']) == []
 
+def get_str_palindrome(lst: List[str]) -> List[str]:
+    '''
+    Determina sirurile de caractere din lista care sunt un palindrom.
+    :param lst: O lista data.
+    :return: O lista cu siruri palindrom.
+    '''
+    result = []
+    for i in lst:
+        if i == i[::-1]:
+            result.append(str(i))
+    return result
+
+def test_get_str_palindrome():
+    assert get_str_palindrome([]) == []
+    assert get_str_palindrome(['ada', 'abc', 'cmtc', 'drd', 'aaa']) == ['ada', 'drd', 'aaa']
+    assert get_str_palindrome(['adsa', 'abc', 'cmtc', 'drsd', 'saa']) == []
+
+
+def get_replace_with_number(lst: List[str], ) -> List[str]:
+    '''
+    Inlocuieste sirurile ce contine cel mai lung caracter din sir cu numarul de aparitii.
+    :param lst: O lista data
+    :return: Lista prelucrata
+    '''
+    sum_max = 0
+    char_max = ''
+    str_nou = ''
+    for elem in lst:
+        str_nou = str_nou + elem
+    for i in range(len(str_nou)):
+        sum = 0
+        for num in range(len(str_nou)):
+            if str_nou[num] == str_nou[i]:
+                sum = sum + 1
+        if sum > sum_max:
+            sum_max = sum
+            char_max = copy[(str_nou[i])]
+
+
+
 def main():
     lista = []
     while True:
@@ -70,9 +111,10 @@ def main():
         elif optiunea == '3':
             print(f'Sirurile de caractere din lista {lista} ce se repeta sunt: {get_list_with_multiple_str(lista)}')
         elif optiunea == '4':
-            pass
+            print(f'Sirurile de caractere palindrom din lista {lista} sunt: {get_str_palindrome(lista)} ')
         elif optiunea == '5':
-            pass
+
+            print(get_num_of_str_in_list(lista))
         elif optiunea == 'x':
             break
         else:
@@ -82,4 +124,6 @@ def main():
 if __name__ == '__main__':
     test_get_str_in_list()
     test_get_list_with_multiple_str()
+    test_get_str_palindrome()
+    test_get_num_of_str_in_list()
     main()
